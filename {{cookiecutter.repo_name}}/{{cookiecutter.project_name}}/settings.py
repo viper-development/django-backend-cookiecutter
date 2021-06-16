@@ -13,6 +13,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     STATIC_ROOT=(str, BASE_DIR / 'static'),
     MEDIA_ROOT=(str, BASE_DIR / 'media'),
+    EMAIL_BCC=(str, None),
 )
 
 environ.Env.read_env()
@@ -29,6 +30,8 @@ LOGIN_REDIRECT_URL = '/'
 ALLOWED_HOSTS = ['*']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+AUTH_USER_MODEL = 'accounts.User'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +46,10 @@ INSTALLED_APPS = [
     # Third-party apps
     'rest_framework',              # Utilities for REST APIs
     'rest_framework.authtoken',    # Token authentication
+    'authemail',                   # Email-based authentication
+
+    # Our apps
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +91,16 @@ DATABASES = {
     'default': env.db()
 }
 
+
+# Email
+# https://docs.djangoproject.com/en/3.1/topics/email/
+# https://django-environ.readthedocs.io/en/latest/#email-settings
+
+EMAIL_CONFIG = env.email_url('EMAIL_URL')
+vars().update(EMAIL_CONFIG)
+
+EMAIL_FROM = env('EMAIL_FROM')
+EMAIL_BCC = env('EMAIL_BCC')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -229,4 +246,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+    'UNAUTHENTICATED_USER': 'accounts.models.AnonymousUser',
 }
