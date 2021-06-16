@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',              # Utilities for REST APIs
     'rest_framework.authtoken',    # Token authentication
     'authemail',                   # Email-based authentication
+    'django_extensions',           # Helpful utilities
 
     # Our apps
     'accounts',
