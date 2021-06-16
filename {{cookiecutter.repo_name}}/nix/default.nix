@@ -36,7 +36,7 @@ let
     export STATIC_ROOT=$out
     export SECRET_KEY=fake
     export DATABASE_URL=fake
-    export EMAIL_URL=fake
+    export EMAIL_URL=dummymail://
     ${dependencyEnv}/bin/python ${src}/manage.py collectstatic --noinput
     '';
 
