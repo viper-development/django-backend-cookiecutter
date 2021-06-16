@@ -12,6 +12,9 @@
     you're already familiar with.
   - Ensures end-to-end reproducibility, "it works on my computer" is
     no longer a valid excuse.
+- Small Docker image, only 65 megabytes compressed!
+  - 233 megabytes uncompressed, still comparatively small for a Django
+    app with all of its dependencies!
 - Out of the box support for Amazon S3 (and compatibles) for media
   storage.
   - Don't use Amazon S3? No worries, this project uses [django-storages]
