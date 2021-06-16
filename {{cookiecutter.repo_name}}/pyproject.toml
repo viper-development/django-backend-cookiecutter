@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "{{cookiecutter.project_name}}-backend"
+name = "{{cookiecutter.project_name}}"
 version = "0.1.0"
 description = "An awesome Django backend for '{{cookiecutter.project_name}}' project"
 authors = []
