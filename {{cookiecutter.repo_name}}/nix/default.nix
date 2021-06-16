@@ -37,6 +37,7 @@ let
     export SECRET_KEY=fake
     export DATABASE_URL=fake
     export EMAIL_URL=dummymail://
+    export EMAIL_FROM=app@localhost
     ${dependencyEnv}/bin/python ${src}/manage.py collectstatic --noinput
     '';
 
