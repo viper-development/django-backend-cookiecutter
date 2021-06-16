@@ -11,6 +11,11 @@ let
   # Python package overrides in case dependencies fails when building with Nix.
   overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: {});
 
+  # Source folder with .gitignore applied
+  src = pkgs.poetry2nix.cleanPythonSources {
+    src = ./..;
+  };
+
   # Environment with only runtime dependencies.
   dependencyEnv = (pkgs.poetry2nix.mkPoetryApplication {
     projectDir = ./..;
@@ -23,6 +28,16 @@ let
     editablePackageSources.app = ./..;
     overrides = overrides;
   };
+
+  # Static files required on runtime
+  static = pkgs.runCommand "{{cookiecutter.project_name}}-static" {}
+    ''
+    mkdir $out
+    export STATIC_ROOT=$out
+    export SECRET_KEY=fake
+    export DATABASE_URL=fake
+    ${dependencyEnv}/bin/python ${src}/manage.py collectstatic --noinput
+    '';
 
   # Shell environment definition
   shell = pkgs.mkShell {
