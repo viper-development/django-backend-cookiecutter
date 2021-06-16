@@ -50,6 +50,9 @@ INSTALLED_APPS = [
 
     # Our apps
     'accounts',
+
+    # Third-party apps (post)
+    'drf_spectacular',             # Flexible OpenAPI 3.0 schema generation
 ]
 
 MIDDLEWARE = [
@@ -247,4 +250,17 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
     'UNAUTHENTICATED_USER': 'accounts.models.AnonymousUser',
+}
+
+
+# drf-spectacular
+# https://github.com/tfranzel/drf-spectacular
+
+# General schema metadata
+# https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#openapi-object
+SPECTACULAR_SETTINGS = {
+    'TITLE': '{{cookiecutter.project_name}} API',
+    'DESCRIPTION': ('An awesome Django backend for '
+                    "'{{cookiecutter.project_name}}' project"),
+    'VERSION': '0.1.0',
 }

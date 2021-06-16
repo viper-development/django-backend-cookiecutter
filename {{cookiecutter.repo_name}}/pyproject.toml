@@ -13,6 +13,7 @@ gunicorn = "^20.1.0"
 psycopg2-binary = "^2.8.6"
 djangorestframework = "^3.12.4"
 django-rest-authemail = { git = "https://github.com/viper-development/django-rest-authemail.git", rev = "bb8dee2665153a769fa78bfbc422732d1843c636" }
+drf-spectacular = "^0.17.2"
 
 [tool.poetry.dev-dependencies]
 
