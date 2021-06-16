@@ -11,9 +11,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Initialize environment variables for config
 env = environ.Env(
     DEBUG=(bool, False),
+
     STATIC_ROOT=(str, BASE_DIR / 'static'),
     MEDIA_ROOT=(str, BASE_DIR / 'media'),
+
     EMAIL_BCC=(str, None),
+
+    S3=(bool, False),
+    AWS_S3_REGION_NAME=(str, 'us-east-1'),
+    AWS_S3_USE_SSL=(bool, True),
+    AWS_S3_ENDPOINT_URL=(str, None),
+    AWS_S3_CUSTOM_DOMAIN=(str, None),
+    AWS_QUERYSTRING_AUTH=(bool, False),
 )
 
 environ.Env.read_env()
@@ -161,6 +170,20 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = env('MEDIA_ROOT')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+if env('S3'):
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
+    AWS_S3_USE_SSL = env('AWS_S3_USE_SSL')
+    AWS_S3_ENDPOINT_URL = env('AWS_S3_ENDPOINT_URL')
+
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+
+    AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
+    AWS_QUERYSTRING_AUTH = env('AWS_QUERYSTRING_AUTH')
 
 
 # Default primary key field type
