@@ -11,6 +11,7 @@ django-environ = "^0.4.5"
 whitenoise = "^5.2.0"
 gunicorn = "^20.1.0"
 psycopg2-binary = "^2.8.6"
+djangorestframework = "^3.12.4"
 
 [tool.poetry.dev-dependencies]
 
