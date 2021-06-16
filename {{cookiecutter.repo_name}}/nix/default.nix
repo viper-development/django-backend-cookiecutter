@@ -39,6 +39,44 @@ let
     ${dependencyEnv}/bin/python ${src}/manage.py collectstatic --noinput
     '';
 
+  # Docker image
+  docker = pkgs.dockerTools.buildImage {
+    name = "{{cookiecutter.project_name}}";
+
+    extraCommands =
+      ''
+      mkdir ./tmp
+      chmod 1777 ./tmp
+      '';
+
+    contents = with pkgs; [
+      busybox
+
+      (writeScriptBin "{{cookiecutter.project_name}}-init"
+        ''
+        #!${runtimeShell}
+        set -e -x
+
+        ${dependencyEnv}/bin/python manage.py migrate
+
+        exec ${dependencyEnv}/bin/gunicorn \
+          --bind=0.0.0.0:8000 --access-logfile - \
+          {{cookiecutter.project_name}}.wsgi:application
+        '')
+    ];
+
+    config = {
+      Cmd = [ "{{cookiecutter.project_name}}-init" ];
+      Env = [ "STATIC_ROOT=${static}" ];
+      WorkingDir = src;
+      User = "1000";
+
+      ExposedPorts = {
+        "8000" = {};
+      };
+    };
+  };
+
   # Shell environment definition
   shell = pkgs.mkShell {
     buildInputs = with pkgs; [
@@ -54,5 +92,6 @@ in
 {
   default = dependencyEnv;
 
+  inherit docker;
   inherit shell;
 }

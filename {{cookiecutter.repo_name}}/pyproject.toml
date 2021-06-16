@@ -9,6 +9,8 @@ python = "^3.8"
 Django = "^3.2.4"
 django-environ = "^0.4.5"
 whitenoise = "^5.2.0"
+gunicorn = "^20.1.0"
+psycopg2-binary = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 
