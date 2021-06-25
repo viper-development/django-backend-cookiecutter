@@ -21,6 +21,7 @@ boto3 = "^1.17.95"
 [tool.poetry.dev-dependencies]
 ipython = "^7.24.1"
 Werkzeug = "^2.0.1"
+flake8 = "^3.9.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
