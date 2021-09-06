@@ -287,4 +287,10 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': ('An awesome Django backend for '
                     "'{{cookiecutter.project_name}}' project"),
     'VERSION': '0.1.0',
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+        'displayOperationId': True,
+    },
+    'SWAGGER_UI_DIST': '//unpkg.com/swagger-ui-dist',
 }
