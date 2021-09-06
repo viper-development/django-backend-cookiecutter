@@ -103,3 +103,16 @@ $ docker load -i result
 ```
 
 You should be able to see the image tag as the last line.
+
+## Getting started
+
+> The following examples use poetry.
+> You can use one of the other methods previously cited.
+
+Run the migrations:
+
+`$ poetry run ./manage.py migrate`
+
+And start the server:
+
+`$ poetry run ./manage.py runserver`
